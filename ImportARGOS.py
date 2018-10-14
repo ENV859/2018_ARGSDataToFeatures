@@ -25,7 +25,7 @@ outPath,outName = os.path.split(outputFC)
 arcpy.CreateFeatureclass_management(outPath,outName,"POINT","","","",outputSR)
 
 # Add TagID, LC, IQ, and Date fields to the output feature class
-arcpy.AddField_management(OutputFC,"TagID","LONG")
+arcpy.AddField_management(outputFC,"TagID","LONG")
 arcpy.AddField_management(outputFC,"LC","TEXT")
 arcpy.AddField_management(outputFC,"Date","DATE")
 
