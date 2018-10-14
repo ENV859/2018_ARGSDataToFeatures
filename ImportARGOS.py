@@ -58,10 +58,20 @@ while lineString:
         # Extract the date we need to variables
         obsLat = line2Data[2]
         obsLon= line2Data[5]
-        
+
         # Print results to see how we're doing
         print (tagID,obsDate,obsTime,obsLC,"Lat:"+obsLat,"Long:"+obsLon)
 
+        # Convert raw coordinate strings to numbers
+        if obsLat[-1] == 'N':
+            obsLat = float(obsLat[:-1])
+        else:
+            obsLat = float(obsLat[:-1] * -1)
+        if obsLon[-1] == 'W':
+            obsLon = float(obsLon[:-1])
+        else:
+            obsLon = float(obsLon[:-1] * -1)
+               
         # Construct a point object from the feature class
         obsPoint = arcpy.Point()
         obsPoint.X = obsLon
