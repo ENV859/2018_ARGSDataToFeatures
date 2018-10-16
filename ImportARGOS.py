@@ -63,7 +63,7 @@ while lineString:
         obsLon= line2Data[5]
 
         # Print results to see how we're doing
-        print (tagID,obsDate,obsTime,obsLC,"Lat:"+obsLat,"Long:"+obsLon)
+        #print (tagID,obsDate,obsTime,obsLC,"Lat:"+obsLat,"Long:"+obsLon)
 
         #Try to convert the coordinates to numbers
         try:
@@ -82,13 +82,17 @@ while lineString:
             obsPoint = arcpy.Point()
             obsPoint.X = obsLon
             obsPoint.Y = obsLat
+            
+            # Convert the point to a point geometry object with spatial reference
+            inputSR = arcpy.SpatialReference(4326)
+            obsPointGeom = arcpy.PointGeometry(obsPoint,inputSR)
 
         #Handle any error
         except Exception as e:
             print("Error adding record {} to the output".format(tagID))
 
         # Create a feature object
-        cur.insertRow((obsPoint,tagID,obsLC,obsDate.replace(".","/") + " " + obsTime))
+        cur.insertRow((obsPointGeom,tagID,obsLC,obsDate.replace(".","/") + " " + obsTime))
 
     # Move to the next line so the while loop progresses
     lineString = inputFileObj.readline()
