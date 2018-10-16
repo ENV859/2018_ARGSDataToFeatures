@@ -87,12 +87,12 @@ while lineString:
             inputSR = arcpy.SpatialReference(4326)
             obsPointGeom = arcpy.PointGeometry(obsPoint,inputSR)
 
+            # Create a feature object
+            cur.insertRow((obsPointGeom,tagID,obsLC,obsDate.replace(".","/") + " " + obsTime))
+
         #Handle any error
         except Exception as e:
             print("Error adding record {} to the output".format(tagID))
-
-        # Create a feature object
-        cur.insertRow((obsPointGeom,tagID,obsLC,obsDate.replace(".","/") + " " + obsTime))
 
     # Move to the next line so the while loop progresses
     lineString = inputFileObj.readline()
